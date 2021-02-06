@@ -1,2 +1,2 @@
-# go-netatmo
-Helper lib to use the netatmo api
+# netatmo
+netatmo is a helper package to use the official netatmo api provided here: https://dev.netatmo.com/guideline
