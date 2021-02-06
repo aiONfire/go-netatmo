@@ -3,14 +3,14 @@ package netatmo
 
 const (
 
-	// baseURL is netatmo api url
-	baseURL = "https://api.netatmo.net/"
+	// BaseURL is netatmo api url
+	BaseURL = "https://api.netatmo.net/"
 
-	// authURL is netatmo auth url
-	authURL = baseURL + "oauth2/token"
+	// AuthURL is netatmo auth url
+	AuthURL = BaseURL + "oauth2/token"
 
 	// deviceURL is netatmo device url
-	deviceURL = baseURL + "/api/getstationsdata"
+	DeviceURL = BaseURL + "/api/getstationsdata"
 )
 
 // https://github.com/exzz/netatmo-api-go/blob/master/weather.go
