@@ -85,3 +85,7 @@ type Token struct {
 	ExpiresIn    string
 	RefreshToken RefreshToken
 }
+
+func Echo(echo string) string {
+	return echo
+}
