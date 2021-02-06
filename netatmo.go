@@ -4,7 +4,7 @@ package netatmo
 const (
 
 	// BaseURL is netatmo api url
-	BaseURL = "https://api.netatmo.net/"
+	BaseURL = "https://api.netatmo.com/"
 
 	// AuthURL is netatmo auth url
 	AuthURL = BaseURL + "oauth2/token"
