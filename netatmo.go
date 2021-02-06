@@ -1,9 +1,7 @@
-//
-package go-netatmo
+// package netatmo 
+package netatmo
 
-import (
-	"strings"
-)
+
 
 const (
 
