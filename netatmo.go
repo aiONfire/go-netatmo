@@ -1,6 +1,12 @@
 // package netatmo
 package netatmo
 
+import (
+	"net/http"
+
+	"golang.org/x/oauth2"
+)
+
 const (
 
 	// BaseURL is netatmo api url
@@ -63,10 +69,23 @@ const (
 // created). As alternative "Client credentials" grant type
 // can be used.
 type AuthorizationCode struct {
-	ClientID    string `json:"clint_id"`
-	RedirectURI string `json:"redirect_uri"`
-	Scope       string `json:"scope"`
-	State       string `json:"state"`
+	GrantType   string   `json:"grant_type"`
+	ClientID    string   `json:"clint_id"`
+	RedirectURI string   `json:"redirect_uri"`
+	Scope       []string `json:"scope"`
+	State       string   `json:"state"`
+}
+
+func NewAuthorizationCode(clientID string, redirectURI string, scope []string) (authorisationCode *AuthorizationCode, err error) {
+	authorisationCode = new(AuthorizationCode)
+	authorisationCode.GrantType = "AuthorizationCode"
+	authorisationCode.ClientID = clientID
+	authorisationCode.RedirectURI = redirectURI
+	authorisationCode.Scope = scope
+
+	// do some testing on given values and report
+	// an error if something is wrong or missing
+	return authorisationCode, nil
 }
 
 type ClientCredentials struct {
@@ -81,6 +100,17 @@ type ClientCredentials struct {
 	Password string `json:"password"`
 }
 
+func NewClientCredentials(clientID string, clientSecret string, scope []string, username string, password string) (clientCredentials *ClientCredentials, err error) {
+	clientCredentials = new(ClientCredentials)
+	clientCredentials.GrantType = "ClientCredentials"
+	clientCredentials.ClientID = clientID
+	clientCredentials.ClientSecret = clientSecret
+	clientCredentials.Scope = scope
+	clientCredentials.Username = username
+	clientCredentials.Password = password
+	return clientCredentials, nil
+}
+
 type RefreshToken struct {
 }
 
@@ -88,6 +118,38 @@ type Token struct {
 	AccessToken  string
 	ExpiresIn    string
 	RefreshToken RefreshToken
+}
+
+// Client is a nuse to make request to Netatmo API
+type Client struct {
+	oauth        *oauth2.Config
+	httpClient   *http.Client
+	httpResponse *http.Response
+	Dc           *DeviceCollection
+}
+
+func NewClient(grantType interface{}) (client *Client, err error) {
+
+	//gT := reflect.TypeOf(grantType)
+
+	switch grantType.(type) {
+	case AuthorizationCode:
+
+		config := new(oauth2.Config)
+		config.ClientID = grantType.(AuthorizationCode).ClientID
+		config.Scopes = grantType.(AuthorizationCode).Scope
+		config.RedirectURL = grantType.(AuthorizationCode).RedirectURI
+		config.Endpoint = oauth2.Endpoint{
+			AuthURL:  AuthURL,  //"https://api.netatmo.com/oauth2/authorize", // netatmo.BaseURL, // "http://localhost:9096/authorize",
+			TokenURL: TokenURL, //"https://api.netatmo.com/oauth2/token",     //netatmo.AuthURL, // "http://localhost:9096/token",
+		}
+
+		return nil, nil
+	case ClientCredentials:
+		return nil, nil
+	default:
+		return nil, nil
+	}
 }
 
 func Echo(echo string) string {
