@@ -10,7 +10,7 @@ const (
 	AuthURL = BaseURL + "oauth2/auth"
 
 	// TokenURL is netatmo token url
-	AuthURL = BaseURL + "oauth2/token"
+	TokenURL = BaseURL + "oauth2/token"
 
 	// deviceURL is netatmo device url
 	DeviceURL = BaseURL + "/api/getstationsdata"
