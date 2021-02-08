@@ -7,7 +7,7 @@ const (
 	BaseURL = "https://api.netatmo.com/"
 
 	// AuthURL is netatmo auth url
-	AuthURL = BaseURL + "oauth2/auth"
+	AuthURL = BaseURL + "oauth2/authorize"
 
 	// TokenURL is netatmo token url
 	TokenURL = BaseURL + "oauth2/token"
