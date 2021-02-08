@@ -7,6 +7,9 @@ const (
 	BaseURL = "https://api.netatmo.com/"
 
 	// AuthURL is netatmo auth url
+	AuthURL = BaseURL + "oauth2/auth"
+
+	// TokenURL is netatmo token url
 	AuthURL = BaseURL + "oauth2/token"
 
 	// deviceURL is netatmo device url
@@ -72,9 +75,10 @@ type ClientCredentials struct {
 	ClientID     string `json:"clint_id"`
 	ClientSecret string `json:"client_secret"`
 
-	Username string   `json:"username"`
-	Password string   `json:"password"`
-	Scope    []string `json:"scope"`
+	Scope []string `json:"scope"`
+
+	Username string `json:"username"`
+	Password string `json:"password"`
 }
 
 type RefreshToken struct {
